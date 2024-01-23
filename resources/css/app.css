@@ -1,0 +1,121 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url("https://fonts.cdnfonts.com/css/futura-pt");
+
+@layer base {
+  :root {
+    font-family: "futura pt";
+    --font-family-main: "futura pt";
+    --background: 0 0% 100%; /* default background color */
+    --foreground: 222.2 47.4% 11.2%; /* Mostly just text  */
+
+    --muted: 210 40% 96.1%; /* Mute backgrounds like table list and skeleton */
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%; /* Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover /> */
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 0, 0%, 100%; /* lightest */
+    --primary-alt: 0, 0%, 94.51%; /* light */
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0, 0%, 0%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 42.35, 17.17%, 80.59%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    /* this will be our green color */
+
+    --accent-two: 120, 9%, 29%;
+    --accent-two-foreground: 0, 0%, 97%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Futura PT Bold", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.5em;
+  letter-spacing: 0em;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 2.8rem;
+}
+
+h3 {
+  font-size: 2.2rem;
+}
+p {
+  font-size: 18px;
+  line-height: 212%; /* 38.16px */
+  font-style: normal;
+  font-weight: 400;
+}
