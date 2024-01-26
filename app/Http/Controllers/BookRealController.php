@@ -22,7 +22,7 @@ class BookRealController extends Controller
         $bookReal->save();
         
         // dd($request->all());
-        return Redirect::route('dashboard');        
+        return Redirect::route('bookReal.getBookReal');        
         // return Inertia::render('Dashboard');
 
     }

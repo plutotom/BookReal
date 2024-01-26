@@ -1,9 +1,10 @@
-import { Button } from "@/Components/MidwayComponents";
+import { Separator } from "@/Components/MidwayComponents/Separator";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import React from "react";
 import BookReal from "./BookReals/BookReal";
 import PostForm from "./PostForm";
+
 export default function BookReals({ bookReals, auth }: any) {
   const [showAddPost, setShowAddPost] = React.useState(false);
 
@@ -17,30 +18,27 @@ export default function BookReals({ bookReals, auth }: any) {
       }
     >
       <Head title="BookReals" />
+      <Separator />
 
-      <div className="flex flex-col items-center justify-center bg-muted ">
+      <div className="flex flex-col items-center justify-center bg-muted">
         {bookReals.map((bookReal: any) => (
-          <BookReal
-            key={bookReal.id}
-            title={bookReal.title}
-            ponder={bookReal.ponder}
-            quote={bookReal.quote}
-            id={bookReal.id}
-            created_at={bookReal.created_at}
-            user_id={bookReal.user_id}
-          />
+          <div key={bookReal.id} className="w-full">
+            <BookReal
+              key={bookReal.id}
+              title={bookReal.title}
+              ponder={bookReal.ponder}
+              quote={bookReal.quote}
+              id={bookReal.id}
+              created_at={bookReal.created_at}
+              user_id={bookReal.user_id}
+            />
+            <Separator />
+          </div>
         ))}
 
         <div className="fixed bottom-0 right-0 p-4">
-          <Button
-            className="bg-primary-foreground"
-            onClick={() => setShowAddPost(!showAddPost)}
-          >
-            Add Post
-          </Button>
+          <PostForm />
         </div>
-
-        {showAddPost && <PostForm></PostForm>}
       </div>
     </AuthenticatedLayout>
   );

@@ -1,11 +1,11 @@
-import { useEffect, FormEventHandler } from "react";
 import Checkbox from "@/Components/Checkbox";
-import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
+import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { FormEventHandler, useEffect } from "react";
 
 export default function Login({
   status,
@@ -14,11 +14,13 @@ export default function Login({
   status?: string;
   canResetPassword: boolean;
 }) {
-  const { data, setData, post, processing, errors, reset } = useForm({
-    email: "",
-    password: "",
-    remember: false,
-  });
+  const { data, setData, post, processing, transform, errors, reset } = useForm(
+    {
+      email: "",
+      password: "",
+      remember: false,
+    },
+  );
 
   useEffect(() => {
     return () => {
@@ -26,9 +28,16 @@ export default function Login({
     };
   }, []);
 
+
+  transform((data) => {
+    data.email = data.email.toLowerCase();
+    return {
+      ...data,
+    };
+  });
+
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
-
     post(route("login"));
   };
 
@@ -43,7 +52,6 @@ export default function Login({
       <form onSubmit={submit}>
         <div>
           <InputLabel htmlFor="email" value="Email" />
-
           <TextInput
             id="email"
             type="email"

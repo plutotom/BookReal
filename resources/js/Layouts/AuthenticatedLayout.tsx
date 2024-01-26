@@ -1,10 +1,10 @@
-import { useState, PropsWithChildren, ReactNode } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
 import { User } from "@/types";
+import { Link } from "@inertiajs/react";
+import { PropsWithChildren, ReactNode, useState } from "react";
 
 export default function Authenticated({
   user,
@@ -129,12 +129,20 @@ export default function Authenticated({
             (showingNavigationDropdown ? "block" : "hidden") + " sm:hidden"
           }
         >
-          <div className="space-y-1 pb-3 pt-2">
+          <div className="space-y-1 ">
             <ResponsiveNavLink
               href={route("dashboard")}
               active={route().current("dashboard")}
             >
               Dashboard
+            </ResponsiveNavLink>
+          </div>
+          <div className="space-y-1 ">
+            <ResponsiveNavLink
+              href={route("bookReal.getBookReal")}
+              active={route().current("bookReal.getBookReal")}
+            >
+              Book Reals
             </ResponsiveNavLink>
           </div>
 

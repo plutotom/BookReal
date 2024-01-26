@@ -20,14 +20,14 @@ export default function BookReal({
   user_id,
 }: BookRealProps) {
   return (
-    <div className="w-3/4 rounded-lg border bg-primary p-4">
+    <div className="w-full bg-primary p-4 md:w-3/4 md:rounded-lg md:border md:p-4">
       <div className="">
         <div>
           <div className="p-0">
-            <h3 className="my-[-12px]">{title}</h3>
+            <h3 className="">{title}</h3>
             <div className="flex flex-row text-muted-foreground">
-              <p className="">{"Isaiah Proctor"} - </p>
-              <p className=""> {new Date(created_at).toLocaleString()}</p>
+              <p>{"Isaiah Proctor"} - </p>
+              <p> {new Date(created_at).toLocaleString()}</p>
             </div>
           </div>
         </div>
