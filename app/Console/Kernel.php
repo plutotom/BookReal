@@ -11,6 +11,9 @@ class Kernel extends ConsoleKernel {
      */
     protected function schedule(Schedule $schedule): void {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('app:clear-book-reals')->dailyAt('00:00');
+        $schedule->command('app:clear-book-reals')->everyMinute();
+
     }
 
     /**
@@ -18,7 +21,7 @@ class Kernel extends ConsoleKernel {
      */
     protected function commands(): void {
         $this->load(__DIR__.'/Commands');
-
+        \App\Console\Commands\clearBookReals::class;
         require base_path('routes/console.php');
     }
 }

@@ -4,13 +4,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: "primary" | "primaryAlt" | "secondary" | "accent";
   size?: "sm" | "md" | "lg";
   variant?: "rounded" | "square";
+  type?: "button" | "submit" | "reset";
 }
 
-export default function Button({
+export default function PrimaryButton({
   className = "",
   disabled,
   children,
   color = "primary",
+  type = "button",
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & ButtonProps) {
   let buttonStyle: string | undefined = {
@@ -41,6 +43,7 @@ export default function Button({
 
   return (
     <button
+      type={type}
       {...props}
       className={twMerge(
         "inline-flex items-center justify-center border border-transparent font-semibold transition duration-150 ease-in-out",

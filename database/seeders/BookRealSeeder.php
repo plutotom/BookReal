@@ -20,9 +20,16 @@ class BookRealSeeder extends Seeder
         //     // Add other seeders if needed
         // ]);
         // use the factory to make 10 bookReal records
-        \App\Models\BookReal::factory()->count(10)->create();
-        \App\Models\BookReal::factory()->count(10)->create([
-            'user_id' => 999, // Replace 123 with the desired ID
+        // \App\Models\BookReal::factory()->count(10)->create();
+        // \App\Models\BookReal::factory()->count(10)->create([
+        //     'user_id' => 999, // Replace 123 with the desired ID
+        // ]);
+
+        \App\Models\BookReal::factory()->count(2)->create([
+            'user_id' => 999, 
+        ]);
+        \App\Models\BookReal::factory()->count(2)->create([
+            'user_id' => 1, 
         ]);
     }
 }

@@ -2,6 +2,7 @@ import Checkbox from "@/Components/Checkbox";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
@@ -27,7 +28,6 @@ export default function Login({
       reset("password");
     };
   }, []);
-
 
   transform((data) => {
     data.email = data.email.toLowerCase();
@@ -95,19 +95,31 @@ export default function Login({
           </label>
         </div>
 
-        <div className="mt-4 flex items-center justify-end">
-          {canResetPassword && (
-            <Link
-              href={route("password.request")}
-              className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-            >
-              Forgot your password?
-            </Link>
-          )}
+        <div className="mt-4 flex items-center ">
+          <div className="flex justify-between">
+            {canResetPassword && (
+              <Link
+                href={route("password.request")}
+                className=" rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+              >
+                Forgot your password?
+              </Link>
+            )}
 
-          <PrimaryButton className="ms-4" disabled={processing}>
-            Log in
-          </PrimaryButton>
+            <Link href={route("register")} className="">
+              <SecondaryButton
+                type="button"
+                className="px-0"
+                disabled={processing}
+              >
+                Create New Account
+              </SecondaryButton>
+            </Link>
+
+            <PrimaryButton className="ms-4 min-w-[83px]" disabled={processing}>
+              Log in
+            </PrimaryButton>
+          </div>
         </div>
       </form>
     </GuestLayout>

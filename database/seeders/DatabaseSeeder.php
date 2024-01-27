@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder {
         ]);
         \App\Models\User::factory(10)->create();
         
-        \App\Models\BookReal::factory()->count(10)->create([
+        \App\Models\BookReal::factory()->count(2)->create([
             'user_id' => 999, 
         ]);
-        \App\Models\BookReal::factory()->count(10)->create([
+        \App\Models\BookReal::factory()->count(2)->create([
             'user_id' => 1, 
         ]);
 

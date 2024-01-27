@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\BookRealController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,12 +18,18 @@ use App\Http\Controllers\BookRealController;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // if logged in, then redirect to book real, else redirect to login
+    if (Route::has('login')) {
+        return redirect()->route('bookReal.getBookReal');
+    } else {
+        return redirect()->route('login');
+    }
+    // return Inertia::render('', [
+    //     'canLogin' => Route::has('login'),
+    //     'canRegister' => Route::has('register'),
+    //     'laravelVersion' => Application::VERSION,
+    //     'phpVersion' => PHP_VERSION,
+    // ]);
 });
 
 Route::get('/dashboard', function () {

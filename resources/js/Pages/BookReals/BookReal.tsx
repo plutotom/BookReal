@@ -24,10 +24,10 @@ export default function BookReal({
       <div className="">
         <div>
           <div className="p-0">
-            <h3 className="">{title}</h3>
-            <div className="flex flex-row text-muted-foreground">
-              <p>{"Isaiah Proctor"} - </p>
-              <p> {new Date(created_at).toLocaleString()}</p>
+            <h3 className="text-2xl font-semibold">{title}</h3>
+            <div className="flex flex-row text-sm text-muted-foreground">
+              <p className="text-sm">{"Isaiah Proctor"} - </p>
+              <p className="text-sm">{new Date(created_at).toLocaleString()}</p>
             </div>
           </div>
         </div>
