@@ -6,7 +6,7 @@ import PostForm from "./PostForm";
 export default function BookReals({ bookReals, auth }: any) {
   return (
     <AuthenticatedLayout user={auth.user}>
-      <div className="flex flex-col items-center justify-center bg-muted">
+      <div className="flex flex-col items-center justify-center bg-background">
         {bookReals.map((bookReal: any) => (
           <div key={bookReal.id} className="w-full">
             <BookReal

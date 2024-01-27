@@ -5,6 +5,9 @@ import defaultTheme from "tailwindcss/defaultTheme";
 export default {
   plugins: [require("tailwindcss-animate")],
   preflight: true,
+  darkMode: ["class", '[data-mode="dark"]'],
+  cssVariables: true,
+
   content: [
     "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
     "./storage/framework/views/*.php",
@@ -68,6 +71,11 @@ export default {
           "base-200": "hsl(var(--base-200))",
           "base-300": "hsl(var(--base-300))",
           foreground: "hsl(var(--base-foreground))",
+        },
+
+        neutral: {
+          DEFAULT: "hsl(var(--neutral))",
+          foreground: "hsl(var(--neutral-foreground))",
         },
 
         info: {

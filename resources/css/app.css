@@ -4,17 +4,17 @@
 
 @import url("https://fonts.cdnfonts.com/css/futura-pt");
 
-@layer base {
+/* @layer base {
   :root {
     font-family: "futura pt";
     --font-family-main: "futura pt";
-    --background: 0 0% 100%; /* default background color */
-    --foreground: 222.2 47.4% 11.2%; /* Mostly just text  */
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 40% 96.1%; /* Mute backgrounds like table list and skeleton */
+    --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --popover: 0 0% 100%; /* Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover /> */
+    --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
 
     --border: 214.3 31.8% 91.4%;
@@ -23,8 +23,8 @@
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
 
-    --primary: 0, 0%, 100%; /* lightest */
-    --primary-alt: 0, 0%, 94.51%; /* light */
+    --primary: 0, 0%, 100%;
+    --primary-alt: 0, 0%, 94.51%;
     --primary-foreground: 0 0% 0%;
 
     --secondary: 0, 0%, 0%;
@@ -32,8 +32,6 @@
 
     --accent: 42.35, 17.17%, 80.59%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
-    /* this will be our green color */
 
     --accent-two: 120, 9%, 29%;
     --accent-two-foreground: 0, 0%, 97%;
@@ -91,6 +89,61 @@
 
     --radius: 0.5rem;
   }
+} */
+
+@layer base {
+  :root {
+    --background: 120 9% 98%;
+    --foreground: 150 10% 4%;
+
+    --base: 0 0% 0%;
+
+    --card: 120 9% 98%;
+    --card-foreground: 150 10% 4%;
+    --popover: 120 9% 98%;
+    --popover-foreground: 150 10% 4%;
+
+    --primary: 143 18% 20%;
+    --primary-foreground: 120 9% 98%;
+
+    --secondary: hsl(143 27% 71%);
+    --secondary-foreground: 150 10% 4%;
+
+    --accent: hsl(19 54% 60%);
+    --accent-foreground: 150 10% 4%;
+
+    --muted: 120 10% 20%;
+    --muted-foreground: 152 10% 70%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 150 10% 4%;
+    --border: 120 10% 20%;
+    --input: 120 10% 20%;
+    --ring: 19 54% 40%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 120 9% 2%;
+    --foreground: 150 10% 96%;
+    --card: 120 9% 2%;
+    --card-foreground: 150 10% 96%;
+    --popover: 120 9% 2%;
+    --popover-foreground: 150 10% 96%;
+    --primary: 143 18% 80%;
+    --primary-foreground: 120 9% 2%;
+    --secondary: 143 27% 29%;
+    --secondary-foreground: 150 10% 96%;
+    --muted: 120 10% 80%;
+    --muted-foreground: 150 10% 96%;
+    --accent: 19 54% 40%;
+    --accent-foreground: 150 10% 96%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 156 10% 10%;
+    --border: 120 9% 60%;
+    --input: 120 10% 80%;
+    --ring: 19 54% 60%;
+  }
 }
 
 @layer base {
@@ -105,30 +158,96 @@
   }
 }
 
-h1,
-h2,
-h3 {
-  font-family: "Futura PT Bold", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  line-height: 1.5em;
-  letter-spacing: 0em;
+/* ====================  */
+@layer base {
+  :root {
+    --background: 120 9% 98%;
+    --foreground: 150 10% 4%;
+    --card: 120 9% 98%;
+    --card-foreground: 150 10% 4%;
+    --popover: 120 9% 98%;
+    --popover-foreground: 150 10% 4%;
+    --primary: 143 18% 20%;
+    --primary-foreground: 120 9% 98%;
+    --secondary: 143 27 71%;
+    --secondary-foreground: 150 10% 4%;
+    --muted: 120 10% 20%;
+    --muted-foreground: 152 10% 60%;
+    --accent: 19 54% 60%;
+    --accent-foreground: 150 10% 4%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 150 10% 4%;
+    --border: 120 10% 20%;
+    --input: 120 10% 20%;
+    --ring: 19 54% 40%;
+    --radius: 0.5rem;
+
+    --neutral: 0 0% 100%;
+
+    --base-100: 0 0% 0%;
+    --base-200: 0, 0%, 91%;
+    --base-300: 0, 0%, 82%;
+    --base-foreground: 0 0% 0%;
+
+    /* add some semantic colors  */
+    --info: 210 40% 98%;
+    --info-foreground: 0 0% 0%;
+    --success: 120, 9%, 29%;
+    --success-foreground: 0, 0%, 97%;
+    --warning: 42.35, 17.17%, 80.59%;
+    --warning-foreground: 0 0% 0%;
+  }
+
+  .dark {
+    --background: 120 9% 2%;
+    --foreground: 150 10% 96%;
+    --card: 120 9% 2%;
+    --card-foreground: 150 10% 96%;
+    --popover: 120 9% 2%;
+    --popover-foreground: 150 10% 96%;
+    --primary: 143 18% 80%;
+    --primary-foreground: 120 9% 2%;
+    --secondary: 143 27% 29%;
+    --secondary-foreground: 150 10% 96%;
+    --muted: 120 10% 80%;
+    --muted-foreground: 150 10% 96%;
+    --accent: 19 54% 40%;
+    --accent-foreground: 150 10% 96%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 156 10% 10%;
+    --border: 120 9% 60%;
+    --input: 120 10% 80%;
+    --ring: 19 54% 60%;
+  }
 }
 
-h1 {
-  font-size: 4rem;
-}
-
-h2 {
-  font-size: 2.8rem;
-}
-
-h3 {
-  font-size: 2.2rem;
-}
 p {
-  font-size: 18px;
-  line-height: 212%; /* 38.16px */
-  font-style: normal;
-  font-weight: 400;
+  --background: hsl(120, 9%, 98%);
+  --foreground: hsl(150, 10%, 4%);
+
+  --base: hsl(0, 0%, 0%);
+
+  --card: hsl(120, 9%, 98%);
+  --card-foreground: hsl(150, 10%, 4%);
+  --popover: hsl(120, 9%, 98%);
+  --popover-foreground: hsl(150, 10%, 4%);
+
+  --primary: hsl(143, 18%, 20%);
+  --primary-foreground: hsl(120, 9%, 98%);
+
+  --secondary: hsl(143, 27, 71%);
+  --secondary-foreground: hsl(150, 10%, 4%);
+
+  --accent: hsl(19, 54%, 60%);
+  --accent-foreground: hsl(150, 10%, 4%);
+
+  --muted: hsl(120, 10%, 20%);
+  --muted-foreground: hsl(152, 10%, 70%);
+
+  --destructive: hsl(0, 85%, 60%);
+  --destructive-foreground: hsl(150, 10%, 4%);
+  --border: hsl(120, 10%, 20%);
+  --input: hsl(120, 10%, 20%);
+  --ring: hsl(19, 54%, 40%);
+  --radius: 0.5rem;
 }

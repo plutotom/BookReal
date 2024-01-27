@@ -83,8 +83,8 @@ export default function PostForm({}) {
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="h-10 w-20 rounded-full border-border bg-secondary">
-            <IoMdAdd className="text-secondary-foreground" />
+          <Button className="h-10 w-20 rounded-full border-border bg-primary">
+            <IoMdAdd className="text-primary-foreground" />
           </Button>
         </DialogTrigger>
         <DialogContent className="h-full sm:max-w-md">
@@ -139,7 +139,7 @@ export default function PostForm({}) {
                   <Separator />
                   <div ref={part2Ref} className="part-2">
                     <textarea
-                      className="h-80 w-full resize-none border-0 px-0 focus:ring-0"
+                      className="h- w-full resize-none border-0 px-0 focus:ring-0"
                       name="quote"
                       onChange={(e) => setData("ponder", e.target.value)}
                       value={data.ponder}
@@ -151,7 +151,7 @@ export default function PostForm({}) {
                     <Button
                       onSubmit={submit}
                       disabled={processing}
-                      color="secondary"
+                      color="primary"
                       type="submit"
                       className="w-full"
                     >
@@ -160,7 +160,7 @@ export default function PostForm({}) {
                     <div className="p-1"></div>
                     <DialogFooter className="sm:justify-start">
                       <DialogClose asChild>
-                        <Button type="button" color="secondary">
+                        <Button className="w-full"  type="button" color="secondary">
                           Close
                         </Button>
                       </DialogClose>

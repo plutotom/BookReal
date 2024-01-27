@@ -20,7 +20,7 @@ export default function BookReal({
   user_id,
 }: BookRealProps) {
   return (
-    <div className="w-full bg-primary p-4 md:w-3/4 md:rounded-lg md:border md:p-4">
+    <div className="w-full p-4 md:w-3/4 md:rounded-lg md:border md:p-4">
       <div className="">
         <div>
           <div className="p-0">
