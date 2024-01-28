@@ -1,9 +1,8 @@
 import Checkbox from "@/Components/Checkbox";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
+import { Button, Input } from "@/Components/MidwayComponents";
 import SecondaryButton from "@/Components/SecondaryButton";
-import TextInput from "@/Components/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { FormEventHandler, useEffect } from "react";
@@ -52,7 +51,7 @@ export default function Login({
       <form onSubmit={submit}>
         <div>
           <InputLabel htmlFor="email" value="Email" />
-          <TextInput
+          {/* <TextInput
             id="email"
             type="email"
             name="email"
@@ -60,6 +59,14 @@ export default function Login({
             className="mt-1 block w-full"
             autoComplete="username"
             isFocused={true}
+            onChange={(e) => setData("email", e.target.value)}
+          /> */}
+          <Input
+            type="email"
+            name="email"
+            value={data.email}
+            className="mt-1 block w-full text-left focus:border-border  active:border-border"
+            autoComplete="username"
             onChange={(e) => setData("email", e.target.value)}
           />
 
@@ -69,12 +76,20 @@ export default function Login({
         <div className="mt-4">
           <InputLabel htmlFor="password" value="Password" />
 
-          <TextInput
+          {/* <TextInput
             id="password"
             type="password"
             name="password"
             value={data.password}
             className="mt-1 block w-full"
+            autoComplete="current-password"
+            onChange={(e) => setData("password", e.target.value)}
+          /> */}
+          <Input
+            type="password"
+            name="password"
+            value={data.password}
+            className="mt-1 block w-full text-left ring-0"
             autoComplete="current-password"
             onChange={(e) => setData("password", e.target.value)}
           />
@@ -109,16 +124,25 @@ export default function Login({
             <Link href={route("register")} className="">
               <SecondaryButton
                 type="button"
-                className="px-0"
+                className="rounded-none px-0"
+                tabIndex={-1}
                 disabled={processing}
               >
                 Create New Account
               </SecondaryButton>
             </Link>
 
-            <PrimaryButton className="ms-4 min-w-[83px]" disabled={processing}>
+            {/* <PrimaryButton className="ms-4 min-w-[83px]" disabled={processing}>
               Log in
-            </PrimaryButton>
+            </PrimaryButton> */}
+            <Button
+              className="ms-4 min-w-[83px]"
+              disabled={processing}
+              type="submit"
+              color="primary"
+            >
+              Log in
+            </Button>
           </div>
         </div>
       </form>

@@ -10,6 +10,7 @@ import {
 } from "@/Components/MidwayComponents/Dialog";
 import { IoMdAdd } from "react-icons/io";
 
+import BookStackSVG from "@/Components/BookStackSVG";
 import { Separator } from "@/Components/MidwayComponents/Separator";
 import { useForm } from "@inertiajs/react";
 import React from "react";
@@ -17,8 +18,6 @@ import React from "react";
 export default function PostForm({}) {
   const [open, setOpen] = React.useState(false);
   const formRef = React.useRef(null);
-  const part1Ref = React.useRef(null);
-  const part2Ref = React.useRef(null);
   const [currentBooks, setCurrentBooks] = React.useState([
     {
       id: 1,
@@ -87,16 +86,22 @@ export default function PostForm({}) {
             <IoMdAdd className="text-primary-foreground" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="h-full sm:max-w-md">
-          <DialogHeader>
+        <DialogContent className="h-full md:h-2/3 md:max-w-lg">
+          <DialogHeader className="h-1/3">
             <DialogTitle>Post a Ponder</DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="flex h-full w-full flex-col items-center justify-center">
-              <form ref={formRef} onSubmit={submit}>
-                <div className="flex flex-col items-center justify-center">
-                  <div className="w-full items-center">
-                    {/* <Select
+          <div className="flex justify-center">
+            <BookStackSVG className="w-1/4 md:w-1/3" />
+          </div>
+          <form
+            className="flex w-full flex-col items-center justify-start"
+            ref={formRef}
+            onSubmit={submit}
+            // style={{ alignSelf: "flex-start" }}
+          >
+            {/* </form> */}
+            {/* <div className="flex flex-col items-center justify-center"> */}
+            {/* <Select
                       onValueChange={(value) => {
                         console.log(value);
                         setData("title", value);
@@ -117,59 +122,64 @@ export default function PostForm({}) {
                       </SelectContent>
                     </Select> */}
 
-                    <Input
-                      className=" border-0 border-none p-0 shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:ring-0 active:ring-0"
-                      type="text"
-                      value={data.title}
-                      onChange={(e) => setData("title", e.target.value)}
-                      placeholder="Book"
-                      name="Book"
-                    ></Input>
+            <h3 className="text-semibold text-xl">Ponder...</h3>
+            <div className="py-3"></div>
+            <Input
+              className="w-full border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:ring-0  focus-visible:ring-offset-0 active:ring-0"
+              type="text"
+              value={data.title}
+              onChange={(e) => setData("title", e.target.value)}
+              placeholder="Book"
+              name="Book"
+            ></Input>
 
-                    <Input
-                      className=" border-0 border-none p-0 shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:ring-0 active:ring-0"
-                      type="text"
-                      value={data.quote}
-                      onChange={(e) => setData("quote", e.target.value)}
-                      placeholder="Quote"
-                      name="Quote"
-                    ></Input>
-                  </div>
+            <Input
+              className="border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
+              type="text"
+              value={data.quote}
+              onChange={(e) => setData("quote", e.target.value)}
+              placeholder="Quote"
+              name="Quote"
+            ></Input>
 
-                  <Separator />
-                  <div ref={part2Ref} className="part-2">
-                    <textarea
-                      className="h- w-full resize-none border-0 px-0 focus:ring-0"
-                      name="quote"
-                      onChange={(e) => setData("ponder", e.target.value)}
-                      value={data.ponder}
-                      id="quote"
-                      cols={100}
-                      rows={3}
-                      placeholder="Thought"
-                    ></textarea>
-                    <Button
-                      onSubmit={submit}
-                      disabled={processing}
-                      color="primary"
-                      type="submit"
-                      className="w-full"
-                    >
-                      Submit
-                    </Button>
-                    <div className="p-1"></div>
-                    <DialogFooter className="sm:justify-start">
-                      <DialogClose asChild>
-                        <Button className="w-full"  type="button" color="secondary">
-                          Close
-                        </Button>
-                      </DialogClose>
-                    </DialogFooter>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
+            <Separator />
+            <textarea
+              className="w-full resize-none border-0 bg-background px-0 focus:ring-0"
+              name="ponder"
+              onChange={(e) => setData("ponder", e.target.value)}
+              value={data.ponder}
+              id="ponder"
+              cols={100}
+              rows={3}
+              placeholder="Ponder..."
+            ></textarea>
+            {/* <Input
+                    className="border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
+                    type="text"
+                    value={data.ponder}
+                    onChange={(e) => setData("ponder", e.target.value)}
+                    placeholder="ponder"
+                    name="ponder"
+                  ></Input> */}
+
+            <Button
+              onSubmit={submit}
+              disabled={processing}
+              color="primary"
+              type="submit"
+              className="w-full"
+            >
+              Submit
+            </Button>
+            <div className="p-1"></div>
+            <DialogFooter className="w-full">
+              <DialogClose asChild>
+                <Button type="button" className="w-full" color="secondary">
+                  Close
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </>

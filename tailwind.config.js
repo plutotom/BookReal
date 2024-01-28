@@ -37,6 +37,7 @@ export default {
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+          secondary20: "hsla(var(--secondary-20))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -109,6 +110,7 @@ export default {
       },
       fontFamily: {
         sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+        cursive: ["var(--font-cursive)", ...defaultTheme.fontFamily.sans],
       },
       borderRadius: {
         lg: `var(--radius)`,

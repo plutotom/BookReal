@@ -1,47 +1,47 @@
-// import { useLocalStorage, useMediaQuery, useUpdateEffect } from "usehooks-ts";
+// // import { useLocalStorage, useMediaQuery, useUpdateEffect } from "usehooks-ts";
 
-const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
-const LOCAL_STORAGE_KEY = "book-real-dark-mode";
+// const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
+// const LOCAL_STORAGE_KEY = "book-real-dark-mode";
 
-interface UseDarkModeOutput {
-  isDarkMode: boolean;
-  toggle: () => void;
-  enable: () => void;
-  disable: () => void;
-  set: (value: boolean) => void;
-}
+// interface UseDarkModeOutput {
+//   isDarkMode: boolean;
+//   toggle: () => void;
+//   enable: () => void;
+//   disable: () => void;
+//   set: (value: boolean) => void;
+// }
 
-/**
- * Custom hook that returns the current state of the dark mode.
- * @param  {?boolean} [defaultValue] the initial value of the dark mode, default `false`.
- * @param  {?string} [localStorageKey] the key to use in the local storage, default `'usehooks-ts-dark-mode'`.
- * @returns {UseDarkModeOutput} An object containing the dark mode's state and its controllers.
- * @see [Documentation](https://usehooks-ts.com/react-hook/use-dark-mode)
- * @example
- * const { isDarkMode, toggle, enable, disable, set } = useDarkMode();
- */
-export function useDarkMode(
-  defaultValue?: boolean,
-  localStorageKey: string = LOCAL_STORAGE_KEY,
-): UseDarkModeOutput {
-  //   const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY);
-  const isDarkOS = false;
-  const [isDarkMode, setDarkMode] = useLocalStorage<boolean>(
-    localStorageKey,
-    defaultValue ?? isDarkOS ?? false,
-  );
+// /**
+//  * Custom hook that returns the current state of the dark mode.
+//  * @param  {?boolean} [defaultValue] the initial value of the dark mode, default `false`.
+//  * @param  {?string} [localStorageKey] the key to use in the local storage, default `'usehooks-ts-dark-mode'`.
+//  * @returns {UseDarkModeOutput} An object containing the dark mode's state and its controllers.
+//  * @see [Documentation](https://usehooks-ts.com/react-hook/use-dark-mode)
+//  * @example
+//  * const { isDarkMode, toggle, enable, disable, set } = useDarkMode();
+//  */
+// export function useDarkMode(
+//   defaultValue?: boolean,
+//   localStorageKey: string = LOCAL_STORAGE_KEY,
+// ): UseDarkModeOutput {
+//   //   const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY);
+//   const isDarkOS = false;
+//   const [isDarkMode, setDarkMode] = useLocalStorage<boolean>(
+//     localStorageKey,
+//     defaultValue ?? isDarkOS ?? false,
+//   );
 
-  // Update darkMode if os prefers changes
-  useUpdateEffect(() => {
-    setDarkMode(isDarkOS);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDarkOS]);
+//   // Update darkMode if os prefers changes
+//   useUpdateEffect(() => {
+//     setDarkMode(isDarkOS);
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [isDarkOS]);
 
-  return {
-    isDarkMode,
-    toggle: () => setDarkMode((prev) => !prev),
-    enable: () => setDarkMode(true),
-    disable: () => setDarkMode(false),
-    set: (value) => setDarkMode(value),
-  };
-}
+//   return {
+//     isDarkMode,
+//     toggle: () => setDarkMode((prev) => !prev),
+//     enable: () => setDarkMode(true),
+//     disable: () => setDarkMode(false),
+//     set: (value) => setDarkMode(value),
+//   };
+// }
