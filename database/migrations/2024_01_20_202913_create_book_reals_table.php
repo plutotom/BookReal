@@ -14,8 +14,8 @@ return new class extends Migration
 
         Schema::create('book_reals', function (Blueprint $table) {
             $table->string('title');
-            $table->string('ponder');
-            $table->string('quote');
+            $table->string('ponder', 1000);
+            $table->string('quote', 1000);
             $table->id();
             $table->timestamps();
 
