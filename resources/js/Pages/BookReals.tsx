@@ -6,15 +6,15 @@ export default function BookReals({ bookReals, auth }: any) {
   return (
     <AuthenticatedLayout user={auth.user}>
       <div className="flex flex-col self-center bg-background md:items-center ">
-        {bookReals.map((bookReal: any) => (
+        {bookReals.map((ponder: any) => (
           <BookReal
-            key={bookReal.id}
-            title={bookReal.title}
-            ponder={bookReal.ponder}
-            quote={bookReal.quote}
-            id={bookReal.id}
-            created_at={bookReal.created_at}
-            user_id={bookReal.user_id}
+            key={ponder.id}
+            book_title={ponder.book_title}
+            ponder_text={ponder.ponder_text}
+            quote={ponder.quote}
+            id={ponder.id}
+            created_at={ponder.created_at}
+            user_id={ponder.user_id}
           />
         ))}
 

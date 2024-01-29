@@ -1,4 +1,13 @@
-import { Button, Input } from "@/Components/MidwayComponents";
+import {
+  Button,
+  Input,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/Components/MidwayComponents";
 import {
   Dialog,
   DialogClose,
@@ -34,7 +43,7 @@ export default function PostForm({}) {
   ]);
 
   const { data, setData, post, processing, errors, reset } = useForm({
-    title: "",
+    book: "",
     quote: "",
     ponder: "",
   });
@@ -68,7 +77,7 @@ export default function PostForm({}) {
       data,
       onSuccess: () => {
         console.log("success");
-        reset("title", "quote", "ponder");
+        reset("book", "quote", "ponder");
         setOpen(false);
       },
       onError: (x: any) => {
@@ -101,37 +110,37 @@ export default function PostForm({}) {
           >
             {/* </form> */}
             {/* <div className="flex flex-col items-center justify-center"> */}
-            {/* <Select
-                      onValueChange={(value) => {
-                        console.log(value);
-                        setData("title", value);
-                      }}
-                    >
-                      <SelectTrigger className="border-0 border-none p-0 shadow-none  focus:ring-0 focus-visible:ring-0 active:ring-0">
-                        <SelectValue placeholder="Select Book" />
-                      </SelectTrigger>
-
-                      <SelectContent>
-                        <SelectGroup>
-                          {currentBooks.map((book) => (
-                            <SelectItem key={book.id} value={book.title}>
-                              {book.title}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select> */}
-
             <h3 className="text-semibold text-xl">Ponder...</h3>
             <div className="py-3"></div>
-            <Input
+            <Select
+              onValueChange={(value) => {
+                console.log(value);
+                setData("book", value);
+              }}
+            >
+              <SelectTrigger className="border-0 border-none p-0 shadow-none  focus:ring-0 focus-visible:ring-0 active:ring-0">
+                <SelectValue placeholder="Select Book" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectGroup>
+                  {currentBooks.map((book) => (
+                    <SelectItem key={book.id} value={String(book.id)}>
+                      {book.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            {/* <Input
               className="w-full border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:ring-0  focus-visible:ring-offset-0 active:ring-0"
               type="text"
               value={data.title}
               onChange={(e) => setData("title", e.target.value)}
               placeholder="Book"
               name="Book"
-            ></Input>
+            ></Input> */}
 
             <Input
               className="border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
