@@ -18,8 +18,8 @@ export default function BookReals({
       {canPonder && (
         <div className="flex flex-col self-center bg-background md:items-center ">
           {Object.keys(bookReals).map((key: string, index, ar) => (
-            <div>
-              <h1>{key}</h1>
+            <div className="md:w-2/3">
+              <h1 className="">{key}</h1>
               {bookReals[key].map((ponder: any) => (
                 <BookReal
                   key={ponder.id}
