@@ -1,28 +1,35 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\BookReal;
+
 use App\Models\Books;
 use App\Models\Ponders;
+use App\Models\PonderWeek;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
-class BookRealController extends Controller
-{
-    public function postBookReal(Request $request): \Illuminate\Http\RedirectResponse
-    {
+class BookRealController extends Controller {
+    public function postBookReal(Request $request): \Illuminate\Http\RedirectResponse {
         $request->validate([
-            "book" => "required",
-            "ponder" => "required",
+            'book' => $request->newBook ? '' : 'required',
+            'ponder' => 'required',
         ]);
 
+        $ponder = new Ponders;
+        if ($request->newBook) {
+            $book = new Books;
+            $book->title = $request->newBook;
+            $book->user_id = auth()->user()->id;
+            $book->save();
 
-        // book will be a book id
+            $ponder->book_id = $book->id;
+        } else {
+            $ponder->book_id = $request->book;
+        }
 
-
-        $ponder = new Ponders();
-        $ponder->book_id = $request->book;
         $ponder->ponder_text = $request->ponder;
         $ponder->user_id = auth()->user()->id;
         $ponder->quote = $request->quote;
@@ -31,18 +38,111 @@ class BookRealController extends Controller
         return Redirect::route('bookReal.getBookReal');
     }
 
-
     public function getBookReal(): \Inertia\Response {
-        $ponders = Ponders::orderBy('created_at', 'desc')->get()->toArray();
+        $ponderWeek = PonderWeek::latest()->select('week_start_date', 'week_end_date')->first();
+        $userRecentPonder = Ponders::where('user_id', auth()->user()->id)->latest()->select('created_at')->first();
 
-        foreach ($ponders as $key => $value) {
-            $book_title = Books::find($ponders[$key]['book_id']);
-            // dd($book_title . " " . $ponders[$key]['book_id']);
-            $ponders[$key]['book_title'] = $book_title ? $book_title->title : null;
+        if ($ponderWeek && $userRecentPonder) {
+            $start = $ponderWeek->week_start_date;
+            $end = $ponderWeek->week_end_date;
+            $userRecentPonder = $userRecentPonder->created_at;
 
+            if ($userRecentPonder->between($start, $end)) {
+                $canPonder = true;
+            } else {
+                $canPonder = false;
+            }
+        } else {
+            $canPonder = false;
         }
+
+        if (! $canPonder) {
+            return Inertia::render('BookReals', [
+                'canPonder' => $canPonder,
+            ]);
+        }
+
+        $ponderWeek = PonderWeek::latest()->select('week_start_date', 'week_end_date')->first();
+        $userPonderDates = Ponders::where('user_id', auth()->user()->id)
+            ->whereBetween('created_at', [$ponderWeek->week_start_date, $ponderWeek->week_end_date])
+            ->pluck('created_at')
+            ->map(function ($date) {
+                return Carbon::parse($date)->toDateString();
+            })
+            ->toArray();
+
+        $temp = collect([
+            [
+                'id' => 12,
+                'created_at' => '2024-02-03T23:06:14.000000Z',
+                'updated_at' => '2024-02-03T23:06:14.000000Z',
+                'user_id' => 999,
+                'book_id' => '11',
+                'quote' => 'really old one',
+                'ponder_text' => 'really old one ponder text',
+                'book_title' => 'Art and Fiath',
+            ],
+            [
+                'id' => 13,
+                'created_at' => '2024-02-02T23:02:14.000000Z',
+                'updated_at' => '2024-02-03T23:06:14.000000Z',
+                'user_id' => 999,
+                'book_id' => '11',
+                'quote' => 'really old one',
+                'ponder_text' => 'really old one ponder text',
+                'book_title' => 'Art and Fiath',
+            ],
+            [
+                'id' => 14,
+                'created_at' => '2024-02-01T23:06:14.000000Z',
+                'updated_at' => '2024-02-03T23:06:14.000000Z',
+                'user_id' => 999,
+                'book_id' => '11',
+                'quote' => 'really old one',
+                'ponder_text' => 'really old one ponder text',
+                'book_title' => 'Art and Fiath',
+            ],
+            [
+                'id' => 14,
+                'created_at' => '2024-01-31T23:06:14.000000Z',
+                'updated_at' => '2024-02-03T23:06:14.000000Z',
+                'user_id' => 999,
+                'book_id' => '11',
+                'quote' => 'really old one',
+                'ponder_text' => 'really old one ponder text',
+                'book_title' => 'Art and Fiath',
+            ],
+        ]);
+
+
+        // $datesArr = [
+        //     "2024-02-03",
+        //     "2024-02-02",
+        //     "2024-02-02",
+        //     "2024-01-31",
+        // ];
+
+        $ponders = Ponders::join('books', 'ponders.book_id', '=', 'books.id')
+            // ->whereBetween('ponders.created_at', [$start, $end])
+            ->whereIn(DB::raw('DATE(ponders.created_at)'), $userPonderDates)
+            ->orderBy('ponders.created_at', 'desc')
+            ->select('ponders.*', 'books.title as book_title')
+            ->get()
+            ->groupBy(function ($ponder) {
+                return $ponder->created_at->format('Y-m-d');
+            })
+            ->toArray();
+
+
+        $books = Books::where('user_id', auth()->user()->id)
+            ->get()
+            ->toArray();
+
+
         return Inertia::render('BookReals', [
             'bookReals' => $ponders,
+            'usersBooks' => $books,
+            'canPonder' => $canPonder,
         ]);
     }
 }

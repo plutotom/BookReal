@@ -24,6 +24,7 @@ class PonderWeekFactory extends Factory
             // $table->datetime('week_start_date');
 
             'week_start_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'week_end_date' => $this->faker->dateTimeBetween('now', '+1 year'),
         ];
     }
 }

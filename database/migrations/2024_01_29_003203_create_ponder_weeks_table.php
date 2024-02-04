@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->datetime('week_start_date');
+            $table->datetime('week_end_date');
         });
     }
 

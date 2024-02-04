@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder {
             "id" => 1,
             'password' => bcrypt('password'),
         ]);
-       
+
         \App\Models\User::factory(9)->create();
 
         \App\Models\User::factory()->create([
@@ -25,13 +25,19 @@ class DatabaseSeeder extends Seeder {
             "id" => 999,
             'password' => bcrypt('password'),
         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Chloe',
+            'email' => 'chloe@blessedmuch.com',
+            "id" => 9999,
+            'password' => bcrypt('password'),
+        ]);
         \App\Models\User::factory(10)->create();
-        
+
         \App\Models\BookReal::factory()->count(2)->create([
-            'user_id' => 999, 
+            'user_id' => 999,
         ]);
         \App\Models\BookReal::factory()->count(2)->create([
-            'user_id' => 1, 
+            'user_id' => 1,
         ]);
 
 

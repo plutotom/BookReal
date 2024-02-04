@@ -24,29 +24,24 @@ import { Separator } from "@/Components/MidwayComponents/Separator";
 import { useForm } from "@inertiajs/react";
 import React from "react";
 
-export default function PostForm({}) {
+export default function PostForm({
+  usersBooks,
+}: {
+  usersBooks: { id: number; title: string }[];
+}) {
   const [open, setOpen] = React.useState(false);
   const formRef = React.useRef(null);
-  const [currentBooks, setCurrentBooks] = React.useState([
-    {
-      id: 1,
-      title: "plato",
-    },
-    {
-      id: 2,
-      title: "aristotle",
-    },
-    {
-      id: 3,
-      title: "kant",
-    },
-  ]);
+  const newBookRef = React.useRef(null);
+  const [currentBooks, setCurrentBooks] = React.useState(usersBooks);
 
-  const { data, setData, post, processing, errors, reset } = useForm({
-    book: "",
-    quote: "",
-    ponder: "",
-  });
+  const { data, setData, post, processing, transform, errors, reset } = useForm(
+    {
+      book: "",
+      quote: "",
+      ponder: "",
+      newBook: "",
+    },
+  );
 
   React.useEffect(() => {
     const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
@@ -68,11 +63,37 @@ export default function PostForm({}) {
       }
     };
   }, [submit]);
+  function handleSelectChange(value: string) {
+    setData({
+      book: value,
+      newBook: data.newBook,
+      quote: data.quote,
+      ponder: data.ponder,
+    });
+
+    if (value === "newBook") {
+      if (newBookRef.current) {
+        //@ts-ignore
+        newBookRef.current.style.display = "block";
+        //@ts-ignore
+        newBookRef.current.focus();
+      }
+    } else {
+      if (newBookRef.current) {
+        //@ts-ignore
+        newBookRef.current.style.display = "none";
+      }
+      setData({
+        book: value,
+        newBook: "",
+        quote: data.quote,
+        ponder: data.ponder,
+      });
+    }
+  }
 
   function submit(e: any) {
     e.preventDefault();
-    console.log(data);
-    console.log("submitting");
     post("/postBookReal", {
       data,
       onSuccess: () => {
@@ -112,12 +133,7 @@ export default function PostForm({}) {
             {/* <div className="flex flex-col items-center justify-center"> */}
             <h3 className="text-semibold text-xl">Ponder...</h3>
             <div className="py-3"></div>
-            <Select
-              onValueChange={(value) => {
-                console.log(value);
-                setData("book", value);
-              }}
-            >
+            <Select onValueChange={(value) => handleSelectChange(value)}>
               <SelectTrigger className="border-0 border-none p-0 shadow-none  focus:ring-0 focus-visible:ring-0 active:ring-0">
                 <SelectValue placeholder="Select Book" />
               </SelectTrigger>
@@ -130,20 +146,26 @@ export default function PostForm({}) {
                     </SelectItem>
                   ))}
                 </SelectGroup>
+                <SelectItem value="newBook">Add New Book</SelectItem>
               </SelectContent>
             </Select>
 
-            {/* <Input
+            {/* if new book select is selected then show this input filed */}
+            <Input
+              ref={newBookRef}
               className="w-full border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:ring-0  focus-visible:ring-offset-0 active:ring-0"
               type="text"
-              value={data.title}
-              onChange={(e) => setData("title", e.target.value)}
-              placeholder="Book"
+              value={data.newBook}
+              onChange={(e) => setData("newBook", e.target.value)}
+              placeholder="New Book Name"
               name="Book"
-            ></Input> */}
+              style={{
+                display: "none",
+              }}
+            ></Input>
 
             <Input
-              className="border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
+              className="border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
               type="text"
               value={data.quote}
               onChange={(e) => setData("quote", e.target.value)}
@@ -162,14 +184,6 @@ export default function PostForm({}) {
               rows={3}
               placeholder="Ponder..."
             ></textarea>
-            {/* <Input
-                    className="border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
-                    type="text"
-                    value={data.ponder}
-                    onChange={(e) => setData("ponder", e.target.value)}
-                    placeholder="ponder"
-                    name="ponder"
-                  ></Input> */}
 
             <Button
               onSubmit={submit}

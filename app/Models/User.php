@@ -42,10 +42,10 @@ class User extends Authenticatable {
         'password' => 'hashed',
     ];
 
-    public function ponderWeeks()
-    {
-        return $this->belongsToMany(PonderWeek::class);
-    }
+    // public function ponderWeeks()
+    // {
+    //     return $this->belongsToMany(PonderWeek::class);
+    // }
 
     // $ponderWeek = PonderWeek::find(1);
     // $user = User::find(1);
@@ -54,13 +54,11 @@ class User extends Authenticatable {
     // To retrieve users associated with a PonderWeek:
 
     // php
-    // Copy code
     // $ponderWeek = PonderWeek::find(1);
     // $users = $ponderWeek->users;
     // And vice versa, to retrieve PonderWeeks associated with a user:
 
     // php
-    // Copy code
     // $user = User::find(1);
     // $ponderWeeks = $user->ponderWeeks
 

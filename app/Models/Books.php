@@ -13,6 +13,7 @@ class Books extends Model
     public static function getBookTitle($book_id) {
         $book = Books::where('id', $book_id)->first();
         return $book->title;
+
     }
 
 
