@@ -7,9 +7,9 @@ use App\Models\Ponders;
 use App\Models\PonderWeek;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\DB;
 
 class BookRealController extends Controller {
     public function postBookReal(Request $request): \Illuminate\Http\RedirectResponse {
@@ -71,50 +71,8 @@ class BookRealController extends Controller {
             })
             ->toArray();
 
-        $temp = collect([
-            [
-                'id' => 12,
-                'created_at' => '2024-02-03T23:06:14.000000Z',
-                'updated_at' => '2024-02-03T23:06:14.000000Z',
-                'user_id' => 999,
-                'book_id' => '11',
-                'quote' => 'really old one',
-                'ponder_text' => 'really old one ponder text',
-                'book_title' => 'Art and Fiath',
-            ],
-            [
-                'id' => 13,
-                'created_at' => '2024-02-02T23:02:14.000000Z',
-                'updated_at' => '2024-02-03T23:06:14.000000Z',
-                'user_id' => 999,
-                'book_id' => '11',
-                'quote' => 'really old one',
-                'ponder_text' => 'really old one ponder text',
-                'book_title' => 'Art and Fiath',
-            ],
-            [
-                'id' => 14,
-                'created_at' => '2024-02-01T23:06:14.000000Z',
-                'updated_at' => '2024-02-03T23:06:14.000000Z',
-                'user_id' => 999,
-                'book_id' => '11',
-                'quote' => 'really old one',
-                'ponder_text' => 'really old one ponder text',
-                'book_title' => 'Art and Fiath',
-            ],
-            [
-                'id' => 14,
-                'created_at' => '2024-01-31T23:06:14.000000Z',
-                'updated_at' => '2024-02-03T23:06:14.000000Z',
-                'user_id' => 999,
-                'book_id' => '11',
-                'quote' => 'really old one',
-                'ponder_text' => 'really old one ponder text',
-                'book_title' => 'Art and Fiath',
-            ],
-        ]);
-
-        $ponders = Ponders::join('books', 'ponders.book_id', '=', 'books.id')
+        $ponders = Ponders::with('comments')
+            ->join('books', 'ponders.book_id', '=', 'books.id')
             ->whereBetween('ponders.created_at', [$start, $end])
             ->whereIn(DB::raw('DATE(ponders.created_at)'), $userPonderDates)
             ->orderBy('ponders.created_at', 'desc')
@@ -128,7 +86,7 @@ class BookRealController extends Controller {
         $books = Books::where('user_id', auth()->user()->id)
             ->get()
             ->toArray();
-
+        dump($ponders);
 
         return Inertia::render('BookReals', [
             'bookReals' => $ponders,

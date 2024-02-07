@@ -17,8 +17,8 @@ export default function BookReals({
     <AuthenticatedLayout user={auth.user}>
       {canPonder && (
         <div className="flex flex-col self-center bg-background md:items-center ">
-          {Object.keys(bookReals).map((key: string, index, ar) => (
-            <div className="md:w-2/3">
+          {Object.keys(bookReals).map((key: string) => (
+            <div key={key} className="md:w-2/3">
               <h1 className="">{key}</h1>
               {bookReals[key].map((ponder: any) => (
                 <BookReal
@@ -29,6 +29,7 @@ export default function BookReals({
                   id={ponder.id}
                   created_at={ponder.created_at}
                   user_id={ponder.user_id}
+                  comments={ponder.comments}
                 />
               ))}
             </div>
@@ -42,7 +43,7 @@ export default function BookReals({
 
       {!canPonder && (
         <div className="text-center text-2xl">
-          You must ponder before you can see others' ponderings.
+          You must ponder before you can see others' pondering.
           <div className="center justify-center">
             <PostForm usersBooks={[]} />
           </div>
