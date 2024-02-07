@@ -114,16 +114,8 @@ class BookRealController extends Controller {
             ],
         ]);
 
-
-        // $datesArr = [
-        //     "2024-02-03",
-        //     "2024-02-02",
-        //     "2024-02-02",
-        //     "2024-01-31",
-        // ];
-
         $ponders = Ponders::join('books', 'ponders.book_id', '=', 'books.id')
-            // ->whereBetween('ponders.created_at', [$start, $end])
+            ->whereBetween('ponders.created_at', [$start, $end])
             ->whereIn(DB::raw('DATE(ponders.created_at)'), $userPonderDates)
             ->orderBy('ponders.created_at', 'desc')
             ->select('ponders.*', 'books.title as book_title')
@@ -132,7 +124,6 @@ class BookRealController extends Controller {
                 return $ponder->created_at->format('Y-m-d');
             })
             ->toArray();
-
 
         $books = Books::where('user_id', auth()->user()->id)
             ->get()
