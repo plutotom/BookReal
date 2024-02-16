@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Books;
+use App\Models\Comments;
 use App\Models\Ponders;
 use App\Models\PonderWeek;
 use Carbon\Carbon;
@@ -92,6 +93,19 @@ class BookRealController extends Controller {
             'bookReals' => $ponders,
             'usersBooks' => $books,
             'canPonder' => $canPonder,
+        ]);
+    }
+
+    public function getPonder($id): \Inertia\Response {
+        $ponder = Ponders::with('comments')
+            ->join('books', 'ponders.book_id', '=', 'books.id')
+            ->where('ponders.id', $id)
+            ->select('ponders.*', 'books.title as book_title')
+            ->first()
+            ->toArray();
+dump($ponder);
+                return Inertia::render('Ponder', [
+            'ponder' => $ponder,
         ]);
     }
 }

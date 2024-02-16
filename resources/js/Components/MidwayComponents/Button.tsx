@@ -9,7 +9,7 @@ import { twMerge } from "tailwind-merge";
 
 interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   color?: "primary" | "primaryAlt" | "secondary" | "accent";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "icon";
   variant?: "rounded" | "square";
   type?: "button" | "submit" | "reset";
 }
@@ -41,6 +41,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       sm: "px-2 py-1 text-xs",
       md: "px-4 py-2 text-sm",
       lg: "px-6 py-3 text-base",
+      icon: "h-9 w-9",
     }[props.size || "md"];
 
     let buttonVariants = {

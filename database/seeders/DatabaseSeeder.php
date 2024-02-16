@@ -42,15 +42,34 @@ class DatabaseSeeder extends Seeder {
 
 
         \App\Models\Books::factory(10)->create();
+        \App\Models\Books::factory(1)->create([
+            'id' => 999,
+            'user_id' => 999,
+            "title"=> "Art and Faith a Theology of Making",
+        ]);
         \App\Models\Ponders::factory(10)->create();
+        \App\Models\Ponders::factory(1)->create([
+            'id' => 999,
+            'user_id' => 999,
+            'ponder_text' => "I am a ponder",
+            'book_id' => 999,
 
-        \App\Models\Comments::factory(10)->create();
-        \App\Models\Comments::factory(3)->create([
-            'parent_id' => 1,
+        ]);
+        \App\Models\Comments::factory(3)->create();
+        \App\Models\Comments::factory(1)->create([
+            'ponder_id' => 999,
+            'user_id' => 999,
+            "id" => 999,
+        ]);
+        \App\Models\Comments::factory(2)->create([
+            'ponder_id' => 999,
         ]);
         \App\Models\Comments::factory(3)->create([
-            'parent_id' => 3,
+            'parent_id' => 999,
+            'ponder_id' => 999,
         ]);
+
+
 
         \App\Models\PonderWeek::factory(1)->create();
     }

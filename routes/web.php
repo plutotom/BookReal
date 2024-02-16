@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\BookRealController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\BookRealController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/postBookReal', [BookRealController::class, 'postBookReal'])->name('bookReal.postBookReal');
     Route::get('/bookReals', [BookRealController::class, 'getBookReal'])->name('bookReal.getBookReal');
+    Route::get('/ponder/{id}', [BookRealController::class, 'getPonder'])->name('bookReal.getPonder');
 });
 
 require __DIR__.'/auth.php';

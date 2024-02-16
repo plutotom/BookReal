@@ -1,4 +1,5 @@
 import { Quote, Separator } from "@/Components/MidwayComponents";
+import { Comments } from "@/types";
 import { FaRegComment } from "react-icons/fa";
 
 export default function BookReal({
@@ -9,15 +10,17 @@ export default function BookReal({
   created_at,
   user_id,
   comments,
-}: BookRealProps) {
+  ...props
+}: React.PropsWithChildren<BookRealProps>) {
   const user = {
     signature: "Isaiah Proctor",
   };
-  console.log("comments: " + comments);
-  console.log(comments);
 
   return (
-    <div className="w-full p-4 transition duration-150 ease-in-out hover:bg-base/[0.1] md:max-w-2xl">
+    <div
+      {...props}
+      className="w-full p-4 transition duration-150 ease-in-out hover:bg-base/[0.1] md:max-w-2xl"
+    >
       <div className="p-0">
         <h3 className="text-2xl font-semibold">{book_title}</h3>
         <div className="flex flex-row text-sm text-muted-foreground">
@@ -47,16 +50,6 @@ export default function BookReal({
   );
 }
 
-interface BookRealComment {
-  comment_id: number;
-  user_id: number;
-  ponder_id: number;
-  comment_text: string;
-  created_at: string;
-  updated_at: string;
-  parent_id: number | null;
-}
-
 interface BookRealProps {
   book_title: string;
   ponder_text: string;
@@ -64,5 +57,6 @@ interface BookRealProps {
   id: number;
   created_at: string;
   user_id: number;
-  comments: BookRealComment[];
+  comments: Comments[];
+  onClick?: () => void;
 }

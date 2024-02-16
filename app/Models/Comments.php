@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Comments extends Model
 {
     use HasFactory;
+
+
+    public function ponder()
+    {
+        return $this->belongsTo(Ponders::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getCommentsByPonderId($ponderId)
+    {
+        return $this->where('ponder_id', $ponderId)->get();
+    }
+
 }
