@@ -109,6 +109,7 @@ export default {
         },
       },
       fontFamily: {
+        // sans: ["Source Serif 4", "Figtree", ...defaultTheme.fontFamily.sans],
         sans: ["Figtree", ...defaultTheme.fontFamily.sans],
         cursive: ["var(--font-cursive)", ...defaultTheme.fontFamily.sans],
       },

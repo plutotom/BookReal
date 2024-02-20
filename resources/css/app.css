@@ -3,6 +3,8 @@
 @import "tailwindcss/utilities";
 @import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive:wght@400&display=swap");
 @import url("https://fonts.cdnfonts.com/css/futura-pt");
+/* // <uniquifier>: Use a uniquifier for the class name
+// <weight>: Use a value from 200 to 900 */
 
 /* @layer base {
   :root {
@@ -75,14 +77,19 @@
     --secondary: 203 11% 73%;
     --secondary20: 203 11% 73% 20%;
     --secondary-foreground: 135 13% 6%;
+
     --muted: 120 10% 20%;
-    --muted-foreground: 152 10% 60%;
+    --muted-foreground: 218 11% 65%;
+
     --accent: 19 54% 60%;
     --accent-foreground: 150 10% 4%;
+
     --destructive: 0 85% 60%;
     --destructive-foreground: 150 10% 4%;
+
     --border: 120 10% 20%;
     --input: 120 10% 20%;
+
     --ring: 19 54% 40%;
     --radius: 0.5rem;
 
@@ -161,11 +168,13 @@
   }
 
   p {
-    @apply text-base;
+    /* @apply text-base; */
+    font-size: 1rem /* 16px */;
+    line-height: 1.5rem /* 24px */;
   }
 }
 
-p {
+/* p {
   --background: hsl(120, 9%, 98%);
   --foreground: hsl(150, 10%, 4%);
 
@@ -194,4 +203,4 @@ p {
   --input: hsl(120, 10%, 20%);
   --ring: hsl(19, 54%, 40%);
   --radius: 0.5rem;
-}
+} */

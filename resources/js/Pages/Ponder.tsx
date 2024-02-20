@@ -40,12 +40,13 @@ export default function Ponder({ auth, ponder }: PonderProps) {
         {/* for each all of the comments out here  */}
         <div className=" flex flex-col p-5 ">
           {ponder.comments.map((comment: Comments) => {
-            return (
-              <div key={comment.id} className="">
-                <p>{comment.comment_text}</p>
-                <Separator />
-              </div>
-            );
+            if (comment.parent_id === null)
+              return (
+                <div key={comment.id} className="">
+                  <p className="">{comment.comment_text}</p>
+                  <Separator />
+                </div>
+              );
           })}
         </div>{" "}
       </div>

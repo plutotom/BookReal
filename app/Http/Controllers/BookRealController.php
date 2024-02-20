@@ -7,13 +7,18 @@ use App\Models\Comments;
 use App\Models\Ponders;
 use App\Models\PonderWeek;
 use Carbon\Carbon;
+// use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
-class BookRealController extends Controller {
-    public function postBookReal(Request $request): \Illuminate\Http\RedirectResponse {
+class BookRealController extends Controller
+{
+    public function postBookReal(Request $request): \Illuminate\Http\RedirectResponse
+    {
         $request->validate([
             'book' => $request->newBook ? '' : 'required',
             'ponder' => 'required',
@@ -39,7 +44,8 @@ class BookRealController extends Controller {
         return Redirect::route('bookReal.getBookReal');
     }
 
-    public function getBookReal(): \Inertia\Response {
+    public function getBookReal(): \Inertia\Response
+    {
         $ponderWeek = PonderWeek::latest()->select('week_start_date', 'week_end_date')->first();
         $userRecentPonder = Ponders::where('user_id', auth()->user()->id)->latest()->select('created_at')->first();
 
@@ -57,7 +63,7 @@ class BookRealController extends Controller {
             $canPonder = false;
         }
 
-        if (! $canPonder) {
+        if (!$canPonder) {
             return Inertia::render('BookReals', [
                 'canPonder' => $canPonder,
             ]);
@@ -72,6 +78,9 @@ class BookRealController extends Controller {
             })
             ->toArray();
 
+        // $ponders = Ponders::with(['comments' => function (HasMany $query) {
+        //     $query->where('parent_id', null);
+        // }])
         $ponders = Ponders::with('comments')
             ->join('books', 'ponders.book_id', '=', 'books.id')
             ->whereBetween('ponders.created_at', [$start, $end])
@@ -83,11 +92,10 @@ class BookRealController extends Controller {
                 return $ponder->created_at->format('Y-m-d');
             })
             ->toArray();
-
+        // dump($ponders);
         $books = Books::where('user_id', auth()->user()->id)
             ->get()
             ->toArray();
-        dump($ponders);
 
         return Inertia::render('BookReals', [
             'bookReals' => $ponders,
@@ -96,15 +104,17 @@ class BookRealController extends Controller {
         ]);
     }
 
-    public function getPonder($id): \Inertia\Response {
+    public function getPonder($id): \Inertia\Response
+    {
         $ponder = Ponders::with('comments')
             ->join('books', 'ponders.book_id', '=', 'books.id')
+            ->join('comments', 'ponders.id', '=', 'comments.ponder_id')
+            ->whereNotNull('comments.parent_id')
             ->where('ponders.id', $id)
             ->select('ponders.*', 'books.title as book_title')
             ->first()
             ->toArray();
-dump($ponder);
-                return Inertia::render('Ponder', [
+        return Inertia::render('Ponder', [
             'ponder' => $ponder,
         ]);
     }
