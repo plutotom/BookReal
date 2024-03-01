@@ -1,6 +1,6 @@
 import { Quote, Separator } from "@/Components/MidwayComponents";
 import { Comments } from "@/types";
-import { FaRegComment } from "react-icons/fa";
+import { BookRealBtnBar } from "./BookRealBtnBar";
 
 export default function BookReal({
   book_title,
@@ -38,12 +38,8 @@ export default function BookReal({
         )}
         <em className="font-cursive"> Author in cursive</em>
       </p>
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-row">
-          <FaRegComment />
-          {comments.length}
-        </div>
-      </div>
+
+      <BookRealBtnBar comments={comments} />
 
       <Separator />
     </div>

@@ -1,8 +1,8 @@
-import { Separator } from "@/Components/MidwayComponents";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Comments, PageProps } from "@/types";
+import { Comments as CommentsType, PageProps } from "@/types";
 import { Head } from "@inertiajs/react";
 import BookReal from "./BookReals/BookReal";
+import { Comments } from "./BookReals/comments";
 
 interface PonderProps extends PageProps {
   ponder: {
@@ -12,7 +12,7 @@ interface PonderProps extends PageProps {
     ponder_text: string;
     quote: string;
     created_at: string;
-    comments: Comments[];
+    commentsCount: CommentsType[];
   };
 }
 
@@ -35,20 +35,9 @@ export default function Ponder({ auth, ponder }: PonderProps) {
           id={ponder.id}
           created_at={ponder.created_at}
           user_id={ponder.user_id}
-          comments={ponder.comments}
+          comments={ponder.commentsCount}
         />
-        {/* for each all of the comments out here  */}
-        <div className=" flex flex-col p-5 ">
-          {ponder.comments.map((comment: Comments) => {
-            if (comment.parent_id === null)
-              return (
-                <div key={comment.id} className="">
-                  <p className="">{comment.comment_text}</p>
-                  <Separator />
-                </div>
-              );
-          })}
-        </div>{" "}
+        <Comments ponder_id={ponder.id} />
       </div>
     </AuthenticatedLayout>
   );
