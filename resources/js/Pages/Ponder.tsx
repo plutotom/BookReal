@@ -2,7 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Comments as CommentsType, PageProps } from "@/types";
 import { Head } from "@inertiajs/react";
 import BookReal from "./BookReals/BookReal";
-import { Comments } from "./BookReals/comments";
+import CommentSection from "./BookReals/commentsSection";
 
 interface PonderProps extends PageProps {
   ponder: {
@@ -17,6 +17,7 @@ interface PonderProps extends PageProps {
 }
 
 export default function Ponder({ auth, ponder }: PonderProps) {
+  console.log("ponder", ponder);
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -37,7 +38,7 @@ export default function Ponder({ auth, ponder }: PonderProps) {
           user_id={ponder.user_id}
           comments={ponder.commentsCount}
         />
-        <Comments ponder_id={ponder.id} />
+        <CommentSection ponder={ponder} />
       </div>
     </AuthenticatedLayout>
   );
