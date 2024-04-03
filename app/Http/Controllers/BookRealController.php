@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
 use Inertia\Inertia;
 
 class BookRealController extends Controller {
@@ -115,4 +116,23 @@ class BookRealController extends Controller {
             'ponder' => $ponder,
         ]);
     }
+
+    public function postComment(Request $request){
+        $request->validate([
+            'book' => $request->newBook ? '' : 'required',
+            'ponder' => 'required',
+        ]);
+
+        $comment = new Comments;
+        $comment->user_id = auth()->user()->id;
+        $comment->ponder_id = '2';
+        $comment->comment_text = '2';
+        $comment->parent_id = '2';
+
+        $comment->save();
+
+        // not sure where this route should go...
+        return Redirect::route('bookReal.getBookReal');
+    }
+
 }

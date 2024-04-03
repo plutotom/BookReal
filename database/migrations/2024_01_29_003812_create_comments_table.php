@@ -17,8 +17,8 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('ponder_id')->constrained('ponders');
-            $table->string('comment_text', 1000);
-            
+            $table->text('comment_text', 10000);
+
             $table->foreignId('parent_id')->nullable()->constrained('comments');
 
         });

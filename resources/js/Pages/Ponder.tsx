@@ -38,6 +38,7 @@ export default function Ponder({ auth, ponder }: PonderProps) {
           user_id={ponder.user_id}
           comments={ponder.commentsCount}
         />
+
         <CommentSection ponder={ponder} />
       </div>
     </AuthenticatedLayout>

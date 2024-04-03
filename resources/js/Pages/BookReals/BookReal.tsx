@@ -1,6 +1,7 @@
 import { Quote, Separator } from "@/Components/MidwayComponents";
 import { Comments } from "@/types";
 import { BookRealBtnBar } from "./BookRealBtnBar";
+import LeaveComment from "./Partials/LeaveComment";
 
 export default function BookReal({
   book_title,
@@ -18,8 +19,9 @@ export default function BookReal({
 
   return (
     <div
+      //   className="w-full p-4 transition duration-150 ease-in-out hover:bg-base/[0.1] md:max-w-2xl"
       {...props}
-      className="w-full p-4 transition duration-150 ease-in-out hover:bg-base/[0.1] md:max-w-2xl"
+      className="w-full bg-white p-4 transition duration-150 ease-in-out md:max-w-2xl"
     >
       <div className="p-0">
         <h3 className="text-2xl font-semibold">{book_title}</h3>
@@ -40,7 +42,7 @@ export default function BookReal({
       </p>
 
       <BookRealBtnBar comments={comments} />
-
+      <LeaveComment postId={id} />
       <Separator />
     </div>
   );

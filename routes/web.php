@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookRealController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/postBookReal', [BookRealController::class, 'postBookReal'])->name('bookReal.postBookReal');
     Route::get('/bookReals', [BookRealController::class, 'getBookReal'])->name('bookReal.getBookReal');
     Route::get('/ponder/{id}', [BookRealController::class, 'getPonder'])->name('bookReal.getPonder');
+    Route::get('/comments/{postId}', [CommentController::class, 'index']);
+    Route::post('/comments/{postId}', [CommentController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';
