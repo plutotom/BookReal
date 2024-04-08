@@ -18,6 +18,10 @@ use Inertia\Inertia;
 |
 */
 
+Route::get("/info", function() {
+    echo phpinfo();
+});
+
 Route::get('/', function () {
     // if logged in, then redirect to book real, else redirect to login
     if (Route::has('login')) {
@@ -25,12 +29,6 @@ Route::get('/', function () {
     } else {
         return redirect()->route('login');
     }
-    // return Inertia::render('', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
 });
 
 Route::get('/dashboard', function () {

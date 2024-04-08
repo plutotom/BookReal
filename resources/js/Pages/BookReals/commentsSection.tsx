@@ -1,4 +1,7 @@
 import { Button } from "@/Components/MidwayComponents";
+import { Comments as CommentsType } from "@/types";
+import React from "react";
+import LeaveComment from "./Partials/LeaveComment";
 
 const CommentSection = ({ ponder }: any) => {
   let comments = ponder.comments;
@@ -35,41 +38,71 @@ const CommentSection = ({ ponder }: any) => {
   return <div>{renderComments(commentTree)}</div>;
 };
 
-const Comment = ({ comment, depth }: any) => {
+const Comment = ({
+  comment,
+  depth,
+}: {
+  comment: CommentsType;
+  depth: number;
+}) => {
   return (
     <div
-      className="mb-4 border-l border-gray-300 pl-2"
+      className="mb-4 border-l border-gray-300 pl-4 pr-4"
       style={{
         marginLeft: `${depth * 20}px`,
       }}
     >
       <p className="whitespace-pre-wrap">{comment.comment_text}</p>
-
-      <CommentButtonBar />
+      <CommentButtonBar
+        parentId={comment.parent_id}
+        postId={comment.ponder_id}
+      />
     </div>
   );
 };
 
-const CommentButtonBar = () => {
-  const handleReply = () => {
-    console.log("replied");
+const CommentButtonBar = ({
+  parentId,
+  postId,
+}: {
+  parentId: number | null;
+  postId: number;
+}) => {
+  const [open, setOpen] = React.useState(false);
+
+  const setToClose = () => {
+    setOpen(false);
   };
+
+  const setToOpen = () => {
+    setOpen(true);
+  };
+
   return (
-    <div className="flex justify-between rounded-xl pe-2 ps-2">
+    <div className="flex justify-between border-b border-t pe-2 ps-2">
       <div>
         <Button
           type="button"
           color="primary"
           variant="rounded"
           className="text-xs"
-          onClick={handleReply}
+          onClick={() => setOpen(true)}
         >
           Reply
         </Button>
       </div>
       <div>
-        <button className="text-xs text-muted-foreground">Like</button>
+        <Button variant="rounded" className="text-xs">
+          Like
+        </Button>
       </div>
+      <LeaveComment
+        parentId={parentId}
+        postId={postId}
+        open={open}
+        setToOpen={setToOpen}
+        setToClose={setToClose}
+      />
     </div>
   );
 };
