@@ -78,7 +78,7 @@ class BookRealController extends Controller {
         // $ponders = Ponders::with(['comments' => function (HasMany $query) {
         //     $query->where('parent_id', null);
         // }])
-        $ponders = Ponders::with('comments')
+        $ponders = Ponders::with(['comments'])
             ->join('books', 'ponders.book_id', '=', 'books.id')
             ->whereBetween('ponders.created_at', [$start, $end])
             ->whereIn(DB::raw('DATE(ponders.created_at)'), $userPonderDates)
@@ -102,7 +102,9 @@ class BookRealController extends Controller {
     }
 
     public function getPonder($id): \Inertia\Response {
-        $ponder = Ponders::with('comments')
+        $ponder = Ponders::with(['comments' => function (HasMany $query) {
+            $query->orderBy('created_at', 'asc');
+        }])
             ->join('books', 'ponders.book_id', '=', 'books.id')
             ->join('comments', 'ponders.id', '=', 'comments.ponder_id')
             // ->whereNotNull('comments.parent_id')

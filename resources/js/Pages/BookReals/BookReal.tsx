@@ -1,5 +1,6 @@
 import { Quote, Separator } from "@/Components/MidwayComponents";
 import { Comments } from "@/types";
+import React from "react";
 import { BookRealBtnBar } from "./BookRealBtnBar";
 import LeaveComment from "./Partials/LeaveComment";
 
@@ -13,6 +14,7 @@ export default function BookReal({
   comments,
   ...props
 }: React.PropsWithChildren<BookRealProps>) {
+  const [open, setOpen] = React.useState(false);
   const user = {
     signature: "Isaiah Proctor",
   };
@@ -42,7 +44,7 @@ export default function BookReal({
       </p>
 
       <BookRealBtnBar comments={comments} />
-      <LeaveComment postId={id} />
+      <LeaveComment postId={id} parentId={null} open={open} setOpen={setOpen} />
       <Separator />
     </div>
   );

@@ -13,32 +13,37 @@ import React from "react";
 import { IoMdAdd } from "react-icons/io";
 
 import BookStackSVG from "@/Components/BookStackSVG";
+import { useHotkeys } from "react-hotkeys-hook";
 export default function LeaveComment({
   postId,
   parentId,
   open,
-  setToOpen,
-  setToClose,
+  setOpen,
 }: {
   postId: number;
   parentId: number | null;
   open: boolean;
-  setToOpen: any;
-  setToClose: any;
+  setOpen: (open: boolean) => void;
 }) {
-  const { data, setData, post, processing, transform, errors, reset } = useForm(
-    {
-      content: "",
-      parentId: parentId ?? null,
-    },
-  );
+  const { data, setData, post, processing, reset } = useForm({
+    content: "",
+    parentId: parentId ?? null,
+  });
 
-  const handlePost = (e: React.SyntheticEvent) => {
+  useHotkeys("mod+enter", () => {
+    console.log("enter mod");
+    if (open) {
+      handlePost(new Event("submit"));
+    }
+  });
+
+  const handlePost = (e: React.SyntheticEvent | Event) => {
     e.preventDefault();
+    console.log("posting...");
     post(`/comments/${postId}`, {
       onSuccess: () => {
         reset();
-        setToClose();
+        setOpen(false);
       },
     });
   };
@@ -47,47 +52,54 @@ export default function LeaveComment({
     <div className="border-t border-black p-1">
       <form className="flex items-center pe-2 ps-1" onSubmit={handlePost}>
         {open && (
-          <Dialog open={open} onOpenChange={setToOpen()}>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button className="h-10 w-20 rounded-full border-border bg-primary">
                 <IoMdAdd className="text-primary-foreground" />
               </Button>
             </DialogTrigger>
             <DialogContent className="h-full md:h-2/3 md:max-w-lg">
-              <DialogHeader className="h-1/3">
-                <DialogTitle>Post a Ponder</DialogTitle>
-              </DialogHeader>
-              <div className="flex justify-center">
-                <BookStackSVG className="w-1/4 md:w-1/3" />
-              </div>
-              <h3 className="text-semibold text-xl">Comment...</h3>
-              <div className="py-3"></div>
-              <textarea
-                className="h-32 w-full rounded-xl border border-border p-2 ring-black"
-                value={data.content}
-                onChange={(e) => {
-                  setData("content", e.target.value);
-                }}
-                placeholder="Add a comment"
-              ></textarea>
-              <div className="p-1"></div>
-              <Button
-                onSubmit={handlePost}
-                disabled={processing}
-                color="primary"
-                type="submit"
-                className="w-full"
-              >
-                Submit
-              </Button>
-              <div className="p-1"></div>
-              <DialogFooter className="w-full">
-                <DialogClose asChild>
-                  <Button type="button" className="w-full" color="secondary">
-                    Close
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
+              <form onSubmit={handlePost}>
+                <DialogHeader className="h-1/3">
+                  <DialogTitle>Post a Ponder</DialogTitle>
+                </DialogHeader>
+                <div className="flex justify-center">
+                  <BookStackSVG className="w-1/4 md:w-1/3" />
+                </div>
+                <h3 className="text-semibold text-xl">Comment...</h3>
+                <div className="py-3"></div>
+                <textarea
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && e.metaKey) {
+                      handlePost(e);
+                    }
+                  }}
+                  className="h-32 w-full rounded-xl border border-border p-2 ring-black"
+                  value={data.content}
+                  onChange={(e) => {
+                    setData("content", e.target.value);
+                  }}
+                  placeholder="Add a comment"
+                ></textarea>
+                <div className="p-1"></div>
+                <Button
+                  onClick={handlePost}
+                  disabled={processing}
+                  color="primary"
+                  type="button"
+                  className="w-full"
+                >
+                  Submit
+                </Button>
+                <div className="p-1"></div>
+                <DialogFooter className="w-full">
+                  <DialogClose asChild>
+                    <Button type="button" className="w-full" color="secondary">
+                      Close
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </form>
             </DialogContent>
           </Dialog>
         )}
@@ -98,14 +110,16 @@ export default function LeaveComment({
           name="Comment"
           maxLength={10000}
           onClick={() => {
-            setToOpen();
+            setOpen(true);
           }}
         ></Input>
         <Button
           variant="rounded"
           type="button"
           className=""
-          onClick={handlePost}
+          onClick={() => {
+            setOpen(true);
+          }}
         >
           Comment
         </Button>

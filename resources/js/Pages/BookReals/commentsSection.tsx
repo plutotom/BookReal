@@ -1,9 +1,16 @@
-import { Button } from "@/Components/MidwayComponents";
 import { Comments as CommentsType } from "@/types";
 import React from "react";
 import LeaveComment from "./Partials/LeaveComment";
 
 const CommentSection = ({ ponder }: any) => {
+  // sort comments by date created
+  // TODO - so when I sort by asc order it brakes this function...
+  ponder.comments.sort((a: any, b: any) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+
+  console.log(ponder.comments);
+
   let comments = ponder.comments;
   const renderComments = (comments: any[], depth: number = 0) => {
     return comments.map((comment: any) => (
@@ -56,6 +63,7 @@ const Comment = ({
       <CommentButtonBar
         parentId={comment.parent_id}
         postId={comment.ponder_id}
+        commentId={comment.id}
       />
     </div>
   );
@@ -64,44 +72,22 @@ const Comment = ({
 const CommentButtonBar = ({
   parentId,
   postId,
+  commentId,
 }: {
   parentId: number | null;
   postId: number;
+  commentId: number;
 }) => {
   const [open, setOpen] = React.useState(false);
 
-  const setToClose = () => {
-    setOpen(false);
-  };
-
-  const setToOpen = () => {
-    setOpen(true);
-  };
-
   return (
     <div className="flex justify-between border-b border-t pe-2 ps-2">
-      <div>
-        <Button
-          type="button"
-          color="primary"
-          variant="rounded"
-          className="text-xs"
-          onClick={() => setOpen(true)}
-        >
-          Reply
-        </Button>
-      </div>
-      <div>
-        <Button variant="rounded" className="text-xs">
-          Like
-        </Button>
-      </div>
+      <p className="text-xs text-gray-500">{commentId}</p>
       <LeaveComment
-        parentId={parentId}
+        parentId={commentId} // This the id of what the user is commenting on
         postId={postId}
         open={open}
-        setToOpen={setToOpen}
-        setToClose={setToClose}
+        setOpen={setOpen}
       />
     </div>
   );

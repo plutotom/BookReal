@@ -28,10 +28,12 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $postId, $parentId = null)
+    public function store(Request $request, $postId)
     {
+
         $request->validate([
             'content' => 'required',
+            'parentId' => 'nullable|exists:comments,id'
         ]);
 
         // public function up(): void
@@ -51,7 +53,7 @@ class CommentController extends Controller
         $comment = new Comments();
         $comment->comment_text = $request->get('content');
         $comment->ponder_id = $postId;
-        $comment->parent_id = $parentId;
+        $comment->parent_id = $request->get('parentId');
         $comment->user_id = auth()->user()->id;
 
         $comment->save();
