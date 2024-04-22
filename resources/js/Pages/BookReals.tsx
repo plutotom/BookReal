@@ -1,5 +1,4 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { router } from "@inertiajs/react";
 import BookReal from "./BookReals/BookReal";
 import PostForm from "./PostForm";
 
@@ -14,8 +13,6 @@ export default function BookReals({
   usersBooks: usersBooks,
   canPonder,
 }: any) {
-  console.log(bookReals);
-
   return (
     <AuthenticatedLayout user={auth.user}>
       {canPonder && (
@@ -25,9 +22,6 @@ export default function BookReals({
               <h1 className="">{key}</h1>
               {bookReals[key].map((ponder: any) => (
                 <BookReal
-                  onClick={() =>
-                    router.get(route("bookReal.getPonder", { id: ponder.id }))
-                  }
                   key={ponder.id}
                   book_title={ponder.book_title}
                   ponder_text={ponder.ponder_text}

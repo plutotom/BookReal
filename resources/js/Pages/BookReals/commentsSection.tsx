@@ -3,19 +3,12 @@ import React from "react";
 import LeaveComment from "./Partials/LeaveComment";
 
 const CommentSection = ({ ponder }: any) => {
-  // sort comments by date created
-  // TODO - so when I sort by asc order it brakes this function...
-  ponder.comments.sort((a: any, b: any) => {
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-  });
-
-  console.log(ponder.comments);
-
   let comments = ponder.comments;
   const renderComments = (comments: any[], depth: number = 0) => {
     return comments.map((comment: any) => (
       <div key={comment.id}>
         <Comment comment={comment} depth={depth} />
+
         {comment.children && renderComments(comment.children, depth + 1)}
       </div>
     ));
@@ -54,7 +47,7 @@ const Comment = ({
 }) => {
   return (
     <div
-      className="mb-4 border-l border-gray-300 pl-4 pr-4"
+      className="mt-4 w-full border-l border-gray-300 pl-4 pr-4"
       style={{
         marginLeft: `${depth * 20}px`,
       }}
@@ -81,8 +74,8 @@ const CommentButtonBar = ({
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="flex justify-between border-b border-t pe-2 ps-2">
-      <p className="text-xs text-gray-500">{commentId}</p>
+    <div className="border-black pe-2 ps-2 ">
+      {/* <p className="text-xs text-gray-500">{commentId}</p> */}
       <LeaveComment
         parentId={commentId} // This the id of what the user is commenting on
         postId={postId}

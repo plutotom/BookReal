@@ -14,6 +14,9 @@ import { IoMdAdd } from "react-icons/io";
 
 import BookStackSVG from "@/Components/BookStackSVG";
 import { useHotkeys } from "react-hotkeys-hook";
+
+// ------------------------------------------------------
+
 export default function LeaveComment({
   postId,
   parentId,
@@ -48,9 +51,14 @@ export default function LeaveComment({
     });
   };
 
+  // ------------------------------------------------------
+
   return (
-    <div className="border-t border-black p-1">
-      <form className="flex items-center pe-2 ps-1" onSubmit={handlePost}>
+    <div className="overflow-auto p-2">
+      <form
+        className="flex w-full items-center space-x-2 overflow-auto py-5 pe-2 ps-1"
+        onSubmit={handlePost}
+      >
         {open && (
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -104,9 +112,9 @@ export default function LeaveComment({
           </Dialog>
         )}
         <Input
-          className="w-full rounded-xl border-0 border-none p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
+          className="w-full rounded-xl border-solid p-0 text-left shadow-none outline-0 focus:border-0 focus:border-none focus:outline-0 focus:ring-0 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0"
           type="text"
-          placeholder="Add a comment"
+          placeholder={`Add a comment`}
           name="Comment"
           maxLength={10000}
           onClick={() => {

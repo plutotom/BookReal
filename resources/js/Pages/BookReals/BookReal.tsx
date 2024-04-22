@@ -1,5 +1,6 @@
 import { Quote, Separator } from "@/Components/MidwayComponents";
 import { Comments } from "@/types";
+import { router } from "@inertiajs/react";
 import React from "react";
 import { BookRealBtnBar } from "./BookRealBtnBar";
 import LeaveComment from "./Partials/LeaveComment";
@@ -25,24 +26,25 @@ export default function BookReal({
       {...props}
       className="w-full bg-white p-4 transition duration-150 ease-in-out md:max-w-2xl"
     >
-      <div className="p-0">
-        <h3 className="text-2xl font-semibold">{book_title}</h3>
-        <div className="flex flex-row text-sm text-muted-foreground">
-          <p className="text-sm">{"Isaiah Proctor"} - </p>
-          <p className="text-sm">{new Date(created_at).toLocaleString()}</p>
+      <div onClick={() => router.get(route("bookReal.getPonder", { id: id }))}>
+        <div className="p-0">
+          <h3 className="text-2xl font-semibold">{book_title}</h3>
+          <div className="flex flex-row text-sm text-muted-foreground">
+            <p className="text-sm">{"Isaiah Proctor"} - </p>
+            <p className="text-sm">{new Date(created_at).toLocaleString()}</p>
+          </div>
         </div>
+        <Quote>{quote}</Quote>
+        <p className="pb-3">
+          {ponder_text} -
+          {user && user.signature ? (
+            <span>{user.signature}</span>
+          ) : (
+            <em> Author in cursive</em>
+          )}
+          <em className="font-cursive"> Author in cursive</em>
+        </p>
       </div>
-      <Quote>{quote}</Quote>
-      <p className="pb-3">
-        {ponder_text} -
-        {user && user.signature ? (
-          <span>{user.signature}</span>
-        ) : (
-          <em> Author in cursive</em>
-        )}
-        <em className="font-cursive"> Author in cursive</em>
-      </p>
-
       <BookRealBtnBar comments={comments} />
       <LeaveComment postId={id} parentId={null} open={open} setOpen={setOpen} />
       <Separator />

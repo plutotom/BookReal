@@ -102,20 +102,36 @@ class BookRealController extends Controller {
     }
 
     public function getPonder($id): \Inertia\Response {
-        $ponder = Ponders::with(['comments' => function (HasMany $query) {
-            $query->orderBy('created_at', 'asc');
-        }])
+
+        // ? if i add this order by it breaks by comment tree function
+        // $ponder = Ponders::with(['comments' => function (HasMany $query) {
+        //     $query->orderBy('created_at', 'desc');
+        // }])
+
+        $ponder = Ponders::with(['comments'])
             ->join('books', 'ponders.book_id', '=', 'books.id')
             ->join('comments', 'ponders.id', '=', 'comments.ponder_id')
             // ->whereNotNull('comments.parent_id')
             ->where('ponders.id', $id)
             ->select('ponders.*', 'books.title as book_title')
-            ->first()
-            ->toArray();
-        // dump($ponder);
+            ->first();
+
+
+
+        if (!$ponder) {
+            $ponder = Ponders::with('book')->where('id', $id)->first();
+            $ponder['book_title'] = $ponder->book->title;
+            if ($ponder) {
+                $ponder->comments = [];
+            }
+        }else $ponder['book_title'] = $ponder->book->title;
+
+        // dump($ponder->toArray());
+
+
 
         return Inertia::render('Ponder', [
-            'ponder' => $ponder,
+            'ponder' => $ponder->toArray(),
         ]);
     }
 

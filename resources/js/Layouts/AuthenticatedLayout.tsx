@@ -21,15 +21,15 @@ export default function Authenticated({
           <div className="flex h-16 justify-between">
             <div className="flex">
               <div className="flex shrink-0 items-center">
-                <Link href="/">
+                <Link className="flex shrink-0 items-center" href="/">
                   {/* <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" /> */}
                   {/* get the png and load it as an icon from @/assets/image
                    */}
                   <BookRealLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  <h4 className="ps-4 text-2xl font-bold dark:text-secondary-foreground">
+                    Book Real
+                  </h4>
                 </Link>
-                <h4 className="ps-4 text-2xl font-bold dark:text-secondary-foreground">
-                  Book Real
-                </h4>
               </div>
 
               <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

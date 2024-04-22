@@ -49,7 +49,7 @@ class CommentController extends Controller
         //         $table->foreignId('parent_id')->nullable()->constrained('comments');
 
         //     });
-        // }V
+        // }
         $comment = new Comments();
         $comment->comment_text = $request->get('content');
         $comment->ponder_id = $postId;
